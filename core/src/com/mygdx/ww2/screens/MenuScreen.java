@@ -2,9 +2,8 @@ package com.mygdx.ww2.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.ww2.Main;
-import com.mygdx.ww2.abstracts.ObjectType;
+import com.mygdx.ww2.abstracts.ScreenObject;
 import com.mygdx.ww2.abstracts.ScreenType;
 
 import java.util.LinkedList;
@@ -14,23 +13,22 @@ import java.util.LinkedList;
  */
 public class MenuScreen extends ScreenType
 {
-    private LinkedList<ObjectType> thisObjects;
-    private BitmapFont fontDrawer = new BitmapFont();
+    private LinkedList<ScreenObject> thisObjects;
 
     public MenuScreen()
     {
-        thisObjects = new LinkedList<ObjectType>();
+        thisObjects = new LinkedList<ScreenObject>();
 
         //set this screen objects
         setObjects();
 
-        // the screen will get all the objects of this instance and will draw it
+        // the screen will get all the objects of this instance and will draw it(only for static and start objects)
         super.setAssets( this, thisObjects);
     }
 
     public void setObjects()
     {
-        super.setAssets(this, thisObjects);
+
     }
 
     public void drawThis()
@@ -41,7 +39,7 @@ public class MenuScreen extends ScreenType
         //Draw any other stuff that isn't a object already defined like a sprite or a text
 
         Main.REFERENCE.batch.begin();
-        fontDrawer.draw(Main.REFERENCE.batch ,Main.REFERENCE.constants.MENUDATA, Gdx.graphics.getWidth() /2, Gdx.graphics.getHeight()/2);
+        Main.REFERENCE.fontDrawer.draw(Main.REFERENCE.batch ,Main.REFERENCE.constants.MENUDATA, Gdx.graphics.getWidth() /2.4f, Gdx.graphics.getHeight()/2);
         Main.REFERENCE.batch.end();
     }
 

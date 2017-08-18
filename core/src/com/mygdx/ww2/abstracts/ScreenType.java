@@ -1,6 +1,8 @@
 package com.mygdx.ww2.abstracts;
 
 
+import com.mygdx.ww2.Main;
+
 import java.util.LinkedList;
 
 /**
@@ -9,20 +11,20 @@ import java.util.LinkedList;
 public abstract class ScreenType
 {
 
-    private LinkedList<ObjectType> objects = new LinkedList<ObjectType>();
-    private LinkedList<UnitType> units = new LinkedList<UnitType>();
-    protected void setAssets(ScreenType sc , LinkedList<ObjectType> assets)
+    private LinkedList<ScreenObject> objects = new LinkedList<ScreenObject>();
+    private LinkedList<UnitObject> units = new LinkedList<UnitObject>();
+    protected void setAssets(ScreenType sc , LinkedList<ScreenObject> assets)
     {
         sc.objects = assets;
     }
 
     public void draw()
     {
-        if(objects.size() > 0) {
-            for (ObjectType obj : objects) {
+        if(objects.size() > Main.REFERENCE.constants.nullified) {
+            for (ScreenObject obj : objects) {
                 obj.draw();
             }
-            for (UnitType unit : units) {
+            for (UnitObject unit : units) {
                 unit.draw();
             }
         }
@@ -30,11 +32,11 @@ public abstract class ScreenType
 
     public void update()
     {
-        if(objects.size() > 0) {
-            for (ObjectType obj : objects) {
+        if(objects.size() > Main.REFERENCE.constants.nullified) {
+            for (ScreenObject obj : objects) {
                 obj.update();
             }
-            for (UnitType unit : units) {
+            for (UnitObject unit : units) {
                 unit.draw();
                 unit.update();
             }
