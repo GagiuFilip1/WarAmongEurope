@@ -1,10 +1,7 @@
 package com.mygdx.ww2.dinamicObjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.ww2.Main;
 import com.mygdx.ww2.Utils.SimpleTimer;
@@ -21,14 +18,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Soldier extends UnitObject {
 
     private SimpleTimer cooldown;
-    private float HP, SPEED, DAMAGE;
+    public float HP;
+    private float SPEED;
     public final GameScreen instance;
     private float range;
-    private boolean DIE = false;
+    public boolean DIE = false;
     public Vector2 position;
     public int getType;
     private Sprite soldierSprite;
-
 
     public Soldier(GameScreen setInstance) {
         soldierSprite = new Sprite(Main.REFERENCE.registry.retrieveTextures(0));
@@ -45,7 +42,6 @@ public class Soldier extends UnitObject {
         //set the basic for this unit
         HP = Main.REFERENCE.constants.soldierHP;
         SPEED = Main.REFERENCE.constants.soldierSpeed;
-        DAMAGE = Main.REFERENCE.constants.soldierDamange;
 
     }
 
@@ -54,17 +50,17 @@ public class Soldier extends UnitObject {
         // Move to the range of the attack with the nearest enemy;
         // TO DO : make soldiers to not overlap
         if (isLeft && lowestDistance >= range && lowestDistance != Integer.MAX_VALUE) {
-            position.x -= Gdx.graphics.getDeltaTime() * Main.REFERENCE.constants.soldierSpeed;
+            position.x -= Gdx.graphics.getDeltaTime() * SPEED;
         }
         if (!isLeft && lowestDistance >= range && lowestDistance != Integer.MAX_VALUE) {
-            position.x += Gdx.graphics.getDeltaTime() * Main.REFERENCE.constants.soldierSpeed;
+            position.x += Gdx.graphics.getDeltaTime() * SPEED;
         }
     }
 
     @Override
     public void Shoot() {
         //when cooldown turns down add a bullet to current instance, shooted by this player
-        if (cooldown.isTimeElapsed()) {
+        if (cooldown.isTimeElapsed() && !target.DIE) {
             Bullet bullet = new Bullet(this);
             // if moveindex == - 1 it will move to left else to right
             if(isLeft)
@@ -77,7 +73,8 @@ public class Soldier extends UnitObject {
     @Override
     public void Die() {
         DIE = (HP <= 0);
-        if (DIE) instance.spawnedObjects.remove(this);
+        if (DIE)
+            instance.spawnedObjects.remove(this);
     }
 
     @Override
@@ -128,12 +125,12 @@ public class Soldier extends UnitObject {
         Shoot();
 
         // die if hp < 0
-        Die();
+       // Die();
     }
 
     private boolean isLeft = false;
     private float lowestDistance = Integer.MAX_VALUE;
-    private Soldier target;
+    public Soldier target;
     private void getLowestDistanceToEnemy(Soldier thisNpc, Soldier enemyNpc)
     {
         //get the nearsset enemy to this soldier
@@ -145,8 +142,11 @@ public class Soldier extends UnitObject {
             target = enemyNpc;
             isLeft = isLeftSeter;
             if(isLeft)
-                soldierSprite.flip(true,false);
+                soldierSprite.setFlip(true,false);
+            else
+                soldierSprite.setFlip(false,false);
         }
+        if(target.DIE)lowestDistance = Integer.MAX_VALUE;
     }
 
     private boolean isInRange(Soldier thisNpc, Soldier enemyNpc)

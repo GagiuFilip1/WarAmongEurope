@@ -20,7 +20,7 @@ public abstract class ScreenType
         sc.objects = assets;
     }
 
-    public void draw()
+    protected void draw()
     {
         if(objects.size() > Main.REFERENCE.constants.nullified) {
             for (ScreenObject obj : objects) {
@@ -32,7 +32,7 @@ public abstract class ScreenType
         }
     }
 
-    public void update()
+    protected void update()
     {
         if(objects.size() > Main.REFERENCE.constants.nullified) {
             for (ScreenObject obj : objects) {

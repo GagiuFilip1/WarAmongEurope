@@ -8,7 +8,6 @@ import com.mygdx.ww2.abstracts.ScreenObject;
 import com.mygdx.ww2.abstracts.ScreenType;
 import com.mygdx.ww2.dinamicObjects.Soldier;
 
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -62,6 +61,7 @@ public class GameScreen extends ScreenType
         super.draw();
 
         // draw spawned objects like units or bulets;
+
         try {
             if (spawnedObjects.size() > Main.REFERENCE.constants.nullified)
                 for (ScreenObject spawned : spawnedObjects) {

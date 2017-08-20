@@ -18,7 +18,9 @@ public class GameRegistry {
     public void dispose() {
         //dispose each texture
         for (Texture texture : gameTextures)
-              texture.dispose();
+            try {
+                texture.dispose();
+            }catch (Exception ex){}
     }
 
     public Texture retrieveTextures(int textureID) {

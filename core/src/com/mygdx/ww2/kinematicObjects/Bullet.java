@@ -2,6 +2,8 @@ package com.mygdx.ww2.kinematicObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.ww2.Main;
@@ -17,12 +19,15 @@ public class Bullet extends ScreenObject
     private float traveled;
     private final Soldier shooter;
     public int moveIndex = 0;
+
+    //----Test Timy------//
     public Bullet(Soldier getshooter)
     {
         shooter = getshooter;
         // get the shooter position
         position = new Vector2();
         position.set(shooter.position.x,shooter.position.y + Main.REFERENCE.constants.distanceToGun);
+        System.out.println(position.x + " " + position.y);
     }
 
     @Override
@@ -83,6 +88,7 @@ public class Bullet extends ScreenObject
                         if(setEnemy.position.x - Main.REFERENCE.constants.soldierBodyBorder < position.x)
                             if(setEnemy.position.x + Main.REFERENCE.constants.soldierBodyBorder > position.x) {
                                 shooter.instance.spawnedObjects.remove(this);
+                                shooter.target.HP -= Main.REFERENCE.constants.soldierDamange;
                             }
                     }
                 }
