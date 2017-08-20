@@ -38,8 +38,17 @@ public class PlayerAI extends ScreenObject
          */
 
         //Add a new unit to the instance to be drawed and updated
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1))
-            instance.spawnedObjects.add(new Soldier(instance));
-
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            Soldier newSoldier = new Soldier(instance);
+            newSoldier.setType(1);
+            newSoldier.position.set(0,0);
+            instance.spawnedObjects.add(newSoldier);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+            Soldier newSoldier = new Soldier(instance);
+            newSoldier.setType(2);
+            newSoldier.position.set(900,0);
+            instance.spawnedObjects.add(newSoldier);
+        }
     }
 }

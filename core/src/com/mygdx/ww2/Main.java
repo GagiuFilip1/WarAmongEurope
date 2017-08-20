@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.ww2.Utils.Constants;
+import com.mygdx.ww2.Utils.GameRegistry;
 import com.mygdx.ww2.managers.ScreenManager;
 
 import java.security.Key;
@@ -20,6 +21,7 @@ public class Main extends ApplicationAdapter {
     public BitmapFont fontDrawer;
 	public ScreenManager screenManager;
 	public Constants constants;
+	public GameRegistry registry;
 	public static Main REFERENCE;
 
 
@@ -32,6 +34,7 @@ public class Main extends ApplicationAdapter {
 		shapeRenderer = new ShapeRenderer();
 		fontDrawer = new BitmapFont();
 		constants = new Constants();
+		registry = new GameRegistry();
 	}
 
 	@Override
@@ -50,6 +53,7 @@ public class Main extends ApplicationAdapter {
 		shapeRenderer.dispose();
 		screenManager.dispose();
 		fontDrawer.dispose();
+		registry.dispose();
 	}
 
 }

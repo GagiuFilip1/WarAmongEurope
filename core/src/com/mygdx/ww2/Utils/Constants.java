@@ -16,4 +16,8 @@ public class Constants
     public float soldierSpeed = 300.0f;
     public float soldierHP = 100.0f;
     public float soldierDamange = 60.0f;
+    public float distanceToGun = 50.0f;
+    public float bulletSpeed = 900.0f;
+    public float soldierBodyBorder = 10.0f;
+    public float soldierRange = 800.0f;
 }

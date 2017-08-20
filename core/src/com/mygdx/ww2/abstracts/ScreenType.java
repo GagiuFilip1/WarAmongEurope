@@ -4,6 +4,8 @@ package com.mygdx.ww2.abstracts;
 import com.mygdx.ww2.Main;
 
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by Gagiu Filip on 8/17/2017.
@@ -11,9 +13,9 @@ import java.util.LinkedList;
 public abstract class ScreenType
 {
 
-    private LinkedList<ScreenObject> objects = new LinkedList<ScreenObject>();
-    private LinkedList<UnitObject> units = new LinkedList<UnitObject>();
-    protected void setAssets(ScreenType sc , LinkedList<ScreenObject> assets)
+    private Queue<ScreenObject> objects = new ConcurrentLinkedQueue<ScreenObject>();
+    private Queue<UnitObject> units = new ConcurrentLinkedQueue<UnitObject>();
+    protected void setAssets(ScreenType sc , Queue<ScreenObject> assets)
     {
         sc.objects = assets;
     }

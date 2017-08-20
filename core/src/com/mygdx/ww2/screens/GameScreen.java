@@ -2,24 +2,39 @@ package com.mygdx.ww2.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.mygdx.ww2.AI.PlayerAI;
 import com.mygdx.ww2.Main;
 import com.mygdx.ww2.abstracts.ScreenObject;
 import com.mygdx.ww2.abstracts.ScreenType;
+import com.mygdx.ww2.dinamicObjects.Soldier;
 
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by Gagiu Filip on 8/17/2017.
  */
 public class GameScreen extends ScreenType
 {
-    private LinkedList<ScreenObject> thisObjects;
-
-    public LinkedList<ScreenObject> spawnedObjects;
+    private Queue<ScreenObject> thisObjects;
+    private PlayerAI playerAI;
+    //public LinkedList<ScreenObject> spawnedObjects;
+     public Queue<ScreenObject> spawnedObjects;
 
     GameScreen()
     {
-        thisObjects = new LinkedList<ScreenObject>();
+        thisObjects = new ConcurrentLinkedQueue<ScreenObject>();
+        spawnedObjects = new ConcurrentLinkedQueue<ScreenObject>();
+        //-------Test Purpose---------------------//
+        Soldier soldier = new Soldier(this);
+        soldier.position.x = Gdx.graphics.getWidth() - 100;
+        soldier.position.y = 0;
+        soldier.setType(2);
+        //spawnedObjects.add(soldier);
+        //--------Test Purpose----------------------//
+        //the logic for player
+        playerAI = new PlayerAI(this);
 
         //set this screen objects
         setObjects();
@@ -30,8 +45,7 @@ public class GameScreen extends ScreenType
 
     private void setObjects()
     {
-        thisObjects.add(null);
-        thisObjects.removeLast();
+
         /*
        TO DO:
        1)ADD PLATOFRM
@@ -48,30 +62,34 @@ public class GameScreen extends ScreenType
         super.draw();
 
         // draw spawned objects like units or bulets;
-        if(spawnedObjects.size() > Main.REFERENCE.constants.nullified)
-        for(ScreenObject spawned : spawnedObjects)
-        {
-            spawned.draw();
+        try {
+            if (spawnedObjects.size() > Main.REFERENCE.constants.nullified)
+                for (ScreenObject spawned : spawnedObjects) {
+                    spawned.draw();
+                }
+        }catch (Exception ignore) {
+            //Just ignore It
         }
 
 
         //Draw any other stuff that isn't a object already defined like a sprite or a text
-        Main.REFERENCE.batch.begin();
-        Main.REFERENCE.fontDrawer.draw(Main.REFERENCE.batch ,Main.REFERENCE.constants.MENUDATA, Gdx.graphics.getWidth() /2.4f, Gdx.graphics.getHeight()/2);
-        Main.REFERENCE.batch.end();
+
     }
 
     private void updateThis()
     {
         //update InGameObjects, we must update them first because they contains stuff like background platform static objects
         super.update();
-
+        playerAI.update();
         //update spawned objects like unts bullets and any other stuf like this
-        if(spawnedObjects.size() > 0)
-            for(ScreenObject spawned : spawnedObjects)
-            {
-                spawned.update();
-            }
+       try {
+           if (spawnedObjects.size() > 0)
+               for (ScreenObject spawned : spawnedObjects) {
+                   spawned.update();
+               }
+       }catch (Exception ignore){
+           //Just ignore it
+           }
 
 
         //any other actions that happens in this screen
