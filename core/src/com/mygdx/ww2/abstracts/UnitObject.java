@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public abstract class UnitObject extends ScreenObject
 {
     public abstract void Move();
-    public abstract void Shoot();
+    public abstract void Action();
     public abstract void Die();
 
 }

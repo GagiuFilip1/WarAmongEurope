@@ -2,8 +2,6 @@ package com.mygdx.ww2.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.ww2.Main;
 import com.mygdx.ww2.abstracts.ScreenObject;
 import com.mygdx.ww2.dinamicObjects.Soldier;
@@ -14,6 +12,7 @@ import com.mygdx.ww2.screens.GameScreen;
  */
 public class PlayerAI extends ScreenObject {
     private final GameScreen instance;
+    public float money = 500;
 
     public PlayerAI(GameScreen getInstance) {
         //get the instance of the played screen game
@@ -42,13 +41,13 @@ public class PlayerAI extends ScreenObject {
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
             Soldier newSoldier = new Soldier(instance);
             newSoldier.setType(1);
-            newSoldier.position.set(0, 0);
+            newSoldier.position.set(Main.reference.constants.nullified, instance.platform.platformParallax.texture.getHeight());
             instance.spawnedObjects.add(newSoldier);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
             Soldier newSoldier = new Soldier(instance);
             newSoldier.setType(2);
-            newSoldier.position.set(900, 0);
+            newSoldier.position.set(990, instance.platform.platformParallax.texture.getHeight());
             instance.spawnedObjects.add(newSoldier);
         }
         setCamera();
@@ -56,23 +55,23 @@ public class PlayerAI extends ScreenObject {
 
     private void setCamera() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if( Main.REFERENCE.camera.position.x  >= 0)
-            Main.REFERENCE.camera.translate(-3, 0, 0);
+            if( Main.reference.camera.position.x  >= 0)
+            Main.reference.camera.translate(-3, 0, 0);
             //If The left input is pressed move to left
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if( Main.REFERENCE.camera.position.x  <= 5000)
-            Main.REFERENCE.camera.translate(3, 0, 0);
+            if( Main.reference.camera.position.x  <= 5000)
+            Main.reference.camera.translate(3, 0, 0);
             //If The Right input is pressed move to Right
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A) &&   Main.REFERENCE.camera.zoom < 1) {
-            Main.REFERENCE.camera.zoom += 0.02;
-            Main.REFERENCE.camera.translate(0, +10, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.A) &&   Main.reference.camera.zoom < 1) {
+            Main.reference.camera.zoom += 0.02;
+            Main.reference.camera.translate(0, +5, 0);
             //If the A Key is pressed, add 0.02 to the Camera's Zoom
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.Q) &&   Main.REFERENCE.camera.zoom > 0.5f) {
-            Main.REFERENCE.camera.zoom -= 0.02;
-            Main.REFERENCE.camera.translate(0, -10, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.Q) &&   Main.reference.camera.zoom > 0.5f) {
+            Main.reference.camera.zoom -= 0.02;
+            Main.reference.camera.translate(0, -5, 0);
 
             //If the Q Key is pressed, subtract 0.02 from the Camera's Zoom
         }
@@ -80,7 +79,7 @@ public class PlayerAI extends ScreenObject {
     }
 
     private void resize(int width, int height) {
-        Main.REFERENCE.camera.viewportWidth = width;
-        Main.REFERENCE.camera.viewportHeight = height;
+        Main.reference.camera.viewportWidth = width;
+        Main.reference.camera.viewportHeight = height;
     }
 }

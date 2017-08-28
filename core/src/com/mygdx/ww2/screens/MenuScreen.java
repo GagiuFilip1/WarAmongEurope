@@ -5,10 +5,8 @@ import com.badlogic.gdx.Input;
 import com.mygdx.ww2.Main;
 import com.mygdx.ww2.abstracts.ScreenObject;
 import com.mygdx.ww2.abstracts.ScreenType;
-import com.mygdx.ww2.abstracts.UnitObject;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by Gagiu Filip on 8/17/2017.
@@ -40,9 +38,9 @@ public class MenuScreen extends ScreenType
 
         //Draw any other stuff that isn't a object already defined like a sprite or a text
 
-        Main.REFERENCE.batch.begin();
-        Main.REFERENCE.fontDrawer.draw(Main.REFERENCE.batch ,Main.REFERENCE.constants.MENUDATA, Gdx.graphics.getWidth() /2.4f, Gdx.graphics.getHeight()/2);
-        Main.REFERENCE.batch.end();
+        Main.reference.batch.begin();
+        Main.reference.fontDrawer.draw(Main.reference.batch ,Main.reference.constants.MENUDATA, Gdx.graphics.getWidth() /2.4f, Gdx.graphics.getHeight()/2);
+        Main.reference.batch.end();
     }
 
     public void updateThis()
@@ -52,7 +50,7 @@ public class MenuScreen extends ScreenType
 
         //any other actions that happens in this screen
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
-            Main.REFERENCE.screenManager.setScreen(new GameScreen());
+            Main.reference.screenManager.setScreen(new GameScreen());
     }
 
     @Override

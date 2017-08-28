@@ -30,6 +30,12 @@ public class GameRegistry {
 
     private void setGameTextures() {
         //here we add textures to our array
+
+        //the texture for the soldier
         gameTextures[0] = new Texture(Gdx.files.internal("units/soldier.png"));
+        //the texture for the house
+        gameTextures[1] = new Texture(Gdx.files.internal("buildings/house.png"));
+        //the texture for the worker
+        gameTextures[2] = new Texture(Gdx.files.internal("units/worker.png"));
     }
 }

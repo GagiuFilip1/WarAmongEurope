@@ -2,11 +2,14 @@ package com.mygdx.ww2.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.ww2.AI.PlayerAI;
 import com.mygdx.ww2.Main;
 import com.mygdx.ww2.abstracts.ScreenObject;
 import com.mygdx.ww2.abstracts.ScreenType;
-import com.mygdx.ww2.dinamicObjects.Soldier;
+import com.mygdx.ww2.staticObjects.Background;
+import com.mygdx.ww2.staticObjects.Platform;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -16,8 +19,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class GameScreen extends ScreenType
 {
-    private Queue<ScreenObject> thisObjects;
-    private PlayerAI playerAI;
+    public Queue<ScreenObject> thisObjects;
+    public PlayerAI playerAI;
     //public LinkedList<ScreenObject> spawnedObjects;
      public Queue<ScreenObject> spawnedObjects;
 
@@ -25,13 +28,7 @@ public class GameScreen extends ScreenType
     {
         thisObjects = new ConcurrentLinkedQueue<ScreenObject>();
         spawnedObjects = new ConcurrentLinkedQueue<ScreenObject>();
-        //-------Test Purpose---------------------//
-        Soldier soldier = new Soldier(this);
-        soldier.position.x = Gdx.graphics.getWidth() - 100;
-        soldier.position.y = 0;
-        soldier.setType(2);
-        //spawnedObjects.add(soldier);
-        //--------Test Purpose----------------------//
+
         //the logic for player
         playerAI = new PlayerAI(this);
 
@@ -42,17 +39,15 @@ public class GameScreen extends ScreenType
         super.setAssets( this, thisObjects);
     }
 
+    public Platform platform;
     private void setObjects()
     {
-
-        /*
-       TO DO:
-       1)ADD PLATOFRM
-       2)ADD BACKGROUND
-       3)THINK OF A WAY TO SET ENEMYS
-       4)ADD AI MODULE
-       5)ADD PLAYER MODULE
-        */
+        Background background = new Background();
+        background.setBackgroundParallax(new Texture(Gdx.files.internal("backgrounds/world.jpg")));
+        platform = new Platform();
+        platform.setBackgroundParallax(new Texture(Gdx.files.internal("platforms/testPlatform.png")));
+        thisObjects.add(background);
+        thisObjects.add(platform);
     }
 
     private void drawThis()
@@ -63,7 +58,7 @@ public class GameScreen extends ScreenType
         // draw spawned objects like units or bulets;
 
         try {
-            if (spawnedObjects.size() > Main.REFERENCE.constants.nullified)
+            if (spawnedObjects.size() > Main.reference.constants.nullified)
                 for (ScreenObject spawned : spawnedObjects) {
                     spawned.draw();
                 }
@@ -73,6 +68,10 @@ public class GameScreen extends ScreenType
 
 
         //Draw any other stuff that isn't a object already defined like a sprite or a text
+        Main.reference.batch.begin();
+        Main.reference.fontDrawer.setColor(Color.GOLD);
+        Main.reference.fontDrawer.draw(Main.reference.batch,"Money : " + String.valueOf(playerAI.money),Main.reference.camera.position.x, (float) (0.98 * Gdx.graphics.getHeight()));
+        Main.reference.batch.end();
 
     }
 
@@ -94,7 +93,7 @@ public class GameScreen extends ScreenType
 
         //any other actions that happens in this screen
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
-            Main.REFERENCE.screenManager.setScreen(new GameScreen());
+            Main.reference.screenManager.setScreen(new GameScreen());
     }
 
     @Override

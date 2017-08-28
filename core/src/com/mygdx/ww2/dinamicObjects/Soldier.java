@@ -19,7 +19,6 @@ public class Soldier extends UnitObject {
 
     private SimpleTimer cooldown;
     public float HP;
-    private float SPEED;
     public final GameScreen instance;
     private float range;
     public boolean DIE = false;
@@ -28,37 +27,40 @@ public class Soldier extends UnitObject {
     private Sprite soldierSprite;
 
     public Soldier(GameScreen setInstance) {
-        soldierSprite = new Sprite(Main.REFERENCE.registry.retrieveTextures(0));
+        soldierSprite = new Sprite(Main.reference.registry.retrieveTextures(0));
+
         // set the soldier type to neutral
         range = setNewRange();
-        getType = Main.REFERENCE.constants.nullified;
+        getType = Main.reference.constants.nullified;
+
         //set a new timer for attack
         cooldown = new SimpleTimer();
-        cooldown.setNewTime(Main.REFERENCE.constants.soldierAttackTime);
-        position = new Vector2();
+        cooldown.setNewTime(Main.reference.constants.soldierAttackTime);
+
         //set the instance where this object is added
         instance = setInstance;
 
         //set the basic for this unit
-        HP = Main.REFERENCE.constants.soldierHP;
-        SPEED = Main.REFERENCE.constants.soldierSpeed;
+        HP = Main.reference.constants.soldierHP;
+
+        position = new Vector2();
+        //set the postion of this unit above the platform
 
     }
 
     @Override
     public void Move() {
         // Move to the range of the attack with the nearest enemy;
-        // TO DO : make soldiers to not overlap
         if (isLeft && lowestDistance >= range && lowestDistance != Integer.MAX_VALUE) {
-            position.x -= Gdx.graphics.getDeltaTime() * SPEED;
+            position.x -= Gdx.graphics.getDeltaTime() * Main.reference.constants.soldierSpeed;
         }
         if (!isLeft && lowestDistance >= range && lowestDistance != Integer.MAX_VALUE) {
-            position.x += Gdx.graphics.getDeltaTime() * SPEED;
+            position.x += Gdx.graphics.getDeltaTime() * Main.reference.constants.soldierSpeed;
         }
     }
 
     @Override
-    public void Shoot() {
+    public void Action() {
         //when cooldown turns down add a bullet to current instance, shooted by this player
         if (cooldown.isTimeElapsed() && !target.DIE) {
             Bullet bullet = new Bullet(this);
@@ -79,17 +81,10 @@ public class Soldier extends UnitObject {
 
     @Override
     public void draw() {
-      /*
-        Main.REFERENCE.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Main.REFERENCE.shapeRenderer.setColor(Color.BLUE);
-        Main.REFERENCE.shapeRenderer.rect(position.x, position.y,12 , 100);
-        Main.REFERENCE.shapeRenderer.end();
-        */
-
-        // TO DO...ADD FUCKING TEXTURES
-        Main.REFERENCE.batch.begin();
-        Main.REFERENCE.batch.draw(soldierSprite, position.x,position.y,40,100);
-        Main.REFERENCE.batch.end();
+        //draw this unit texture
+        Main.reference.batch.begin();
+        Main.reference.batch.draw(soldierSprite, position.x,position.y,40,100);
+        Main.reference.batch.end();
     }
 
     @Override
@@ -122,7 +117,7 @@ public class Soldier extends UnitObject {
 
         //shot if is in range with its target
         if(isInRange(this, target))
-        Shoot();
+        Action();
 
         // die if hp < 0
        // Die();
@@ -138,7 +133,7 @@ public class Soldier extends UnitObject {
         if(newDistance < lowestDistance && enemyNpc.getType != getType)
         {
             lowestDistance = newDistance;
-            boolean isLeftSeter = thisNpc.position.x - enemyNpc.position.x > Main.REFERENCE.constants.nullified;
+            boolean isLeftSeter = thisNpc.position.x - enemyNpc.position.x > Main.reference.constants.nullified;
             target = enemyNpc;
             isLeft = isLeftSeter;
             if(isLeft)
@@ -156,7 +151,7 @@ public class Soldier extends UnitObject {
 
     private float setNewRange()
     {
-        return ThreadLocalRandom.current().nextInt((int)(Main.REFERENCE.constants.soldierRange - Main.REFERENCE.constants.distanceToGun), (int)(Main.REFERENCE.constants.soldierRange + Main.REFERENCE.constants.distanceToGun) + 1);
+        return ThreadLocalRandom.current().nextInt((int)(Main.reference.constants.soldierRange - Main.reference.constants.distanceToGun), (int)(Main.reference.constants.soldierRange + Main.reference.constants.distanceToGun) + 1);
     }
 }
 

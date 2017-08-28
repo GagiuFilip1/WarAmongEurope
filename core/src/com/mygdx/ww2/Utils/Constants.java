@@ -20,4 +20,12 @@ public class Constants
     public float bulletSpeed = 900.0f;
     public float soldierBodyBorder = 10.0f;
     public float soldierRange = 800.0f;
+    //HOUSE
+    public float resources = 1000.0f;
+    public float maxWorkers = 2;
+
+    //Worker
+    public float workCapacity = 30;
+    public float workerSpeed = 450.0f;
+    public float workCoolDown = 5.0f;
 }

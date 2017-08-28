@@ -23,7 +23,7 @@ public class Infiltrator extends UnitObject{
     }
 
     @Override
-    public void Shoot() {
+    public void Action() {
 
     }
 

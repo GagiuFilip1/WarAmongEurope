@@ -2,8 +2,6 @@ package com.mygdx.ww2.kinematicObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.ww2.Main;
@@ -26,17 +24,17 @@ public class Bullet extends ScreenObject
         shooter = getshooter;
         // get the shooter position
         position = new Vector2();
-        position.set(shooter.position.x,shooter.position.y + Main.REFERENCE.constants.distanceToGun);
+        position.set(shooter.position.x,shooter.position.y + Main.reference.constants.distanceToGun);
         System.out.println(position.x + " " + position.y);
     }
 
     @Override
     public void draw() {
         //draw smth for testing
-        Main.REFERENCE.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Main.REFERENCE.shapeRenderer.setColor(Color.GOLD);
-        Main.REFERENCE.shapeRenderer.rect(position.x,position.y,6,2);
-        Main.REFERENCE.shapeRenderer.end();
+        Main.reference.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Main.reference.shapeRenderer.setColor(Color.GOLD);
+        Main.reference.shapeRenderer.rect(position.x,position.y,6,2);
+        Main.reference.shapeRenderer.end();
     }
 
     @Override
@@ -53,15 +51,15 @@ public class Bullet extends ScreenObject
         switch (type)
         {
             case -1:
-                position.x += Gdx.graphics.getDeltaTime()* Main.REFERENCE.constants.bulletSpeed;
-                traveled += Gdx.graphics.getDeltaTime()* Main.REFERENCE.constants.bulletSpeed;
+                position.x += Gdx.graphics.getDeltaTime()* Main.reference.constants.bulletSpeed;
+                traveled += Gdx.graphics.getDeltaTime()* Main.reference.constants.bulletSpeed;
                 break;
             case 1 :
-                position.x -= Gdx.graphics.getDeltaTime()* Main.REFERENCE.constants.bulletSpeed;
-                traveled += Gdx.graphics.getDeltaTime()* Main.REFERENCE.constants.bulletSpeed;
+                position.x -= Gdx.graphics.getDeltaTime()* Main.reference.constants.bulletSpeed;
+                traveled += Gdx.graphics.getDeltaTime()* Main.reference.constants.bulletSpeed;
                 break;
-            default:  position.x += Gdx.graphics.getDeltaTime()* Main.REFERENCE.constants.bulletSpeed;
-                traveled += Gdx.graphics.getDeltaTime()* Main.REFERENCE.constants.bulletSpeed;
+            default:  position.x += Gdx.graphics.getDeltaTime()* Main.reference.constants.bulletSpeed;
+                traveled += Gdx.graphics.getDeltaTime()* Main.reference.constants.bulletSpeed;
                 break;
         }
     }
@@ -85,10 +83,10 @@ public class Bullet extends ScreenObject
                     Soldier setEnemy = ((Soldier) (enemy));
                     if (shooter.getType != setEnemy.getType)
                     {
-                        if(setEnemy.position.x - Main.REFERENCE.constants.soldierBodyBorder < position.x)
-                            if(setEnemy.position.x + Main.REFERENCE.constants.soldierBodyBorder > position.x) {
+                        if(setEnemy.position.x - Main.reference.constants.soldierBodyBorder < position.x)
+                            if(setEnemy.position.x + Main.reference.constants.soldierBodyBorder > position.x) {
                                 shooter.instance.spawnedObjects.remove(this);
-                                shooter.target.HP -= Main.REFERENCE.constants.soldierDamange;
+                                shooter.target.HP -= Main.reference.constants.soldierDamange;
                             }
                     }
                 }

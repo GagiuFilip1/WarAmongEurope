@@ -23,7 +23,7 @@ public class Comander extends UnitObject
     }
 
     @Override
-    public void Shoot() {
+    public void Action() {
 
     }
 
